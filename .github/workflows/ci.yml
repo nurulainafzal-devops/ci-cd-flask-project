@@ -1,6 +1,26 @@
-  run: |
-        pip install flask
+name: CI Pipeline
 
- - name: Run basic check
-      run: |
-        python -m py_compile app.py
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          pip install flask
+
+      - name: Run basic check
+        run: |
+          python -m py_compile app.py
